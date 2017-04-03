@@ -1,192 +1,193 @@
-# DecodeMTL Array methods workshop
+# DecodeMTL Array Methods Workshop
 
-As a reference throughout this workshop, make sure to use [the MDN documentation for `Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+## Instructions
 
-If you prefer videos, here's a series of videos explaining filter/map/reduce:
+* Fork this repo to your own GitHub, and clone your copy to Cloud9
+* Move to the directory you cloned and run `npm install` from the command line
+* For every exercise:
+  1. From the command line, run:
+  
+  ```sh
+  npm test test/<nameOfTheExercise>.js
+  ```
+  
+  For example, for the first exercise:
+  
+  ```sh
+  npm test test/forEach.js
+  ```
+  2. Look at the failing test results
+  3. In `workshop.js`, fill in the function code and re-run the tests
+  4. Continue doing this until all the tests have passed. Then move to the next exercise.
 
-* Filter: https://www.youtube.com/watch?v=BMUiFMZr7vk
-* Map: https://www.youtube.com/watch?v=bCqtb-Z5YGQ
-* Reduce: https://www.youtube.com/watch?v=Wl98eZpkp-c
+## Functions
 
-## Operational instructions
-Fork this repository to your own GitHub and clone your fork in your work environment.
+### `forEach`
+Make this function call the `callback` once for every element in `theArray`. Unlike JavaScript's `Array.prototype.forEach`, the `callback` function will receive only one argument: the current item.
 
-Create a file called `answers.js` which will hold your answers.
+**NOTE**: It's really important that you build the code of this function well, because you will **re-use** it throughout the workshop to create **more complex** functions. This practice of re-using and composing functions together to create more complex operations is one of the core principles of functional programming.
 
-As soon as you do the first exercise, commit it, push it and **create a pull request**.
+### `map`
+Make this function return a new array containing every element of the input array passed through the mapping function. For example:
 
-After each exercise make sure to commit/push this way we can monitor your progress in the pull request.
-
-**NOTE**: You don't need to reset your `answers.js` file. Keep growing the file with each exercise, and make sure to add a comment so we know which exercise we are looking at.
-
-## Exercise 1
-Write a function called `printPositives` that takes an array and uses the `forEach` method to **print** only the positive numbers.
-
-## Exercise 2
-Similar to the previous exercise, write a function called `getPositives` that takes an array and uses the `filter` method to **return a new array** with only the positive numbers.
-
-## Exercise 2B
-Re-do exercise 1 by first filtering the input array, and then printing the numbers from the filtered array. Your code will look something like: `return arr.filter(...).forEach(...)
-
-## Exercise 3
-Write a function called `filterArray` that takes an array AND a function as arguments. Your `filter` function should return a new array that contains only the elements where the passed function returns a truthy value.
-
-**NOTE**: You are allowed to use `Array.prototype.filter` to answer this question.
-
-**NOTE 2**: This is a bit of a trick question, the answer is a one-liner :)
-
-## Exercise 4
-Write a function called `longestWord` that takes a string as argument, and returns the longest word in the string. You should use `Array.prototype.reduce` to do your work.
-
-**Hint**: You can use `String.prototype.split` to split the string into an array of words.
-
-## Exercise 5
-Write a function called `countVowels` that takes a string and returns the number of vowels in the string. You should use `Array.prototype.reduce` to do your work.
-
-**Hint**: You can use `String.prototype.split` again. There is a way to use it to split a string by character. Try to Google it :)
-
-**Hint 2**: You can create an array of vowels and use `Array.prototype.indexOf` to check if the current letter is a vowel.
-
-## Exercise 6
-Write a function called `highLow` that takes an array of numbers, and returns an object with a property `highest` containing the highest number, and a property `lowest` containing the lowest number, using `Array.prototype.reduce`.
-
-For example, starting with `[1, -10, 20, 40, 5]`, your function should return `{highest: 40, lowest: -10}`.
-
-**Hint**: Javascript has a special value called `Infinity`, which is higher than any other number. See if you can initialize your reduce accumulator with `Infinity` and `-Infinity` :)
-
-## Exercise 7
-Expanding on exercise 6, write a function called `highLowTwo` that takes an array of numbers, and returns the higest, second highest, lowest, and second lowest numbers.
-
-For example, starting with `[1, -10, 20, 40, 5]`, your function should return:
-
-```json
-{
-  "highest": 40,
-  "secondHighest": 20,
-  "lowest": -10,
-  "secondLowest": 5
+```js
+function map(mappingFunction, theArray) {
+    // You write the code here
 }
-```
 
-## Exercise 8
-Write a function called `countChars` that takes a string, and returns an object where the keys are letters, and the value is the number of times that letter appears.
-
-For example, with input "hello world", the output should be:
-
-```json
-{
-  "h": 1,
-  "e": 1,
-  "l": 3,
-  "o": 2,
-  "w": 1,
-  "r": 1,
-  "d": 1
+function multiplyByTwo(x) {
+    return x * 2;
 }
+
+var values = [1,10,15,16];
+var doubleValues = map(multiplyByTwo, values); // [2,20,30,32]
 ```
 
-**NOTE**: Unlike arrays, objects don't have any ordering on them. When you print your object on the console, your keys may be displayed in a different order, and it does not matter.
+**NOTE**: You can re-use your `forEach` function to do this exercise ;)
 
-## Exercise 9
-Starting on week 3 of the bootcamp, we will be learning about databases. Databases are useful for saving data for long periods of time.
+### `filter`
+Make this function return a new array containing only the elements of the input array where the predicate function returns `true` or a truthy value.
 
-Contrary to a JavaScript program, where all the data disappears when the program terminates, databases keep their data "forever".
+**NOTE**: A predicate is simply a function that checks whether something is true about its input. It normally returns `true` and `false` only. Here's an example:
 
-In this exercise, we're going to imagine that we are storing people information in a database, and that we queried our database to retrieve a list of people.
-
-Our database returns to us an array of people objects, and each of them has a **unique ID** that the database uses to refer to it.
-
-Here's what our person data could look like:
-
-```json
-[
-  {
-    "id": "KeXoYg92is",
-    "firstName": "John",
-    "lastName": "Smith",
-    "email": "john@smith.com"
-  },
-  {
-    "id": "NkALmSWtUp",
-    "firstName": "Donald",
-    "lastName": "Duck",
-    "email": "don@disney.com"
-  },
-  {
-    "id": "m7LPbJYSUg",
-    "firstName": "John",
-    "lastName": "Vader",
-    "email": "vader@darkside.com"
-  }
-]
-```
-
-For this exercise, we want to use `Array.prototype.reduce` to transform our array of people into an object, keyed with the unique ID.
-
-The end result should look like this:
-
-```json
-{
-  "KeXoYg92is": {
-    "id": "KeXoYg92is",
-    "firstName": "John",
-    "lastName": "Smith",
-    "email": "john@smith.com"
-  },
-  "NkALmSWtUp": {
-    "id": "NkALmSWtUp",
-    "firstName": "Donald",
-    "lastName": "Duck",
-    "email": "don@disney.com"
-  },
-  "m7LPbJYSUg": {
-    "id": "m7LPbJYSUg",
-    "firstName": "John",
-    "lastName": "Vader",
-    "email": "vader@darkside.com"
-  }
+```js
+function filter(predicate, theArray) {
+    // You write the code here
 }
-```
 
-This object could be useful if we are often looking up people by their unique ID.
-
-Write a function called `peopleById` that takes an array of people and returns an object where each person is keyed by their unique ID.
-
-You have effectively created what we call an *index*, not unlike the one you have in your phonebook.
-
-## Exercise 10
-Expanding on the previous exercise, this time we are going to create an index on **first names**. Notice how in the previous exercise, each ID was unique. In this case, two people have the same first name.
-
-We want to create a function called `peopleByFirstName` that will take an array of people and return something that looks like this:
-
-```json
-{
-  "John": [
-    {
-      "id": "KeXoYg92is",
-      "firstName": "John",
-      "lastName": "Smith",
-      "email": "john@smith.com"
-    },
-    {
-      "id": "m7LPbJYSUg",
-      "firstName": "John",
-      "lastName": "Vader",
-      "email": "vader@darkside.com"
-    }
-  ],
-  "Donald": [
-    {
-      "id": "NkALmSWtUp",
-      "firstName": "Donald",
-      "lastName": "Duck",
-      "email": "don@disney.com"
-    }
-  ]
+function isEven(x) {
+    return x % 2 === 0;
 }
+
+var values = [1,10,15,16];
+var evenValues = filter(isEven, values); // [10,16]
 ```
 
-You have effectively created an *index on first name*. This lets you find all people called, say, "John" without having to look through the whole results.
+**NOTE**: You can re-use your `forEach` function to do this exercise ;)
 
-## Exercise 11
-Start or continue the activity [Functional programming in JavaScript](http://reactivex.io/learnrx/).
+### `every`
+Make this function return:
+
+  a. `true` if *all the elements* in the input array pass the predicate function
+  b. `false` otherwise.
+  c. If passed an empty array, then return `true`.
+  
+To get the full points on this exercise, your `every` function has to stop as soon as it encounters an item for which the predicate function returns `false`. You don't need to go any further.
+
+### `some`
+Make this function return:
+
+  a. `true` if  *at least one element* in the input array passes the predicate function
+  b. `false` otherwise.
+  c. If passed an empty array, then return `false`.
+  
+To get the full points on this exercise, your `some` function has to stop as soon as it encounters an item for which the predicate function returns `true`. You don't need to go any further.
+
+### `indexOf`
+Make this function return the index of the first item in the input array that is `===` to the input item. If no item in the input array is `===` to the input item, then return `-1`. For example:
+
+```js
+var fruits = ['orange', 'apple', 'banana', 'apple'];
+
+indexOf('apple', fruits); // 1
+indexOf('pineapple', fruits); // -1
+indexOf('anything', []); // -1
+```
+
+### `findIndex`
+Make this function return the index of the first item in the input array for which the predicate function returns `true`. Return `-1` if no matching item is found. For example:
+
+```js
+var pets = [
+    {id: 33, name: 'popcorn', species: 'dog'},
+    {id: 46, name: 'purrito', species: 'cat'},
+    {id: 47, name: 'bob', species: 'fish'},
+    {id: 49, name: 'nacho', species: 'dog'}
+];
+
+function isDog(item) {
+    return item.species === 'dog';
+}
+
+var firstDogIndex = findIndex(isDog, pets);
+```
+
+After successfully implementing the function, explain in your own words why we need `findIndex` when we already have `indexOf`. They're two functions that return an array index based on a condition, but there is a fundamental difference between them.
+
+Hint: it is related to how `===` works with objects.
+
+
+### `first`
+Make this function return the first element of the input array if it is called with one argument. If called with two arguments, then make it return an array of the first `n` elements of the input array. If `n` is larger than the number of elements in the input array, return the whole array. If `n` is negative, return an empty array. For example:
+
+```js
+first([4,5,6]); // 4
+first(2, ['a','b','c','d']); // ['a','b']
+first(1, ['a','b','c']); // ['a']
+first(10, ['a','b','c']); // ['a','b','c']
+```
+
+### `last`
+Make this function return the last element of the input array if it is called with one argument. If called with two arguments, then make it return an array of the last `n` elements of the input array. If `n` is larger than the number of elements in the input array, return the whole array. If `n` is negative, return an empty array. For example:
+
+```js
+last([4,5,6]); // 6
+last(2, ['a','b','c','d']); // ['c','d']
+last(1, ['a','b','c']); // ['c']
+last(10, ['a','b','c']); // ['a','b','c']
+```
+
+### `pluck`
+Make this function return a new array where each item is the value of the property named `property` in the current object in the loop. Here a few examples are better:
+
+```js
+var pets = [
+    {id: 33, owner: 'nyancat', name: 'popcorn', species: 'dog'},
+    {id: 46, name: 'purrito', species: 'cat'},
+    {id: 47, name: 'bob', species: 'fish'},
+    {id: 49, owner: 'nyancat', name: 'nacho', species: 'dog'}
+];
+
+pluck('id', pets); // [33,46,47,49]
+pluck('name', pets); // ['popcorn','purrito','bob','nacho']
+pluck('owner', pets); // ['nyancat', undefined, undefined, 'nyancat']
+```
+
+### `flatten`
+Make this function return a new array that "un-nests" the input array. Here are a few examples:
+
+```js
+flatten([1,2,3]); // [1,2,3] no change
+flatten([[1], [2,3], 4, 5]); // [1,2,3,4,5];
+flatten([[['hello'], 'world']]); // ['hello','world'];
+```
+
+### `negate1`
+Make this function return a **new function** that will always return the opposite of the predicate function it is passed. This first version of your solution will work for one argument only. For example:
+
+```js
+function isEven(num) {
+    return num % 2 === 0;
+}
+
+var isOdd = negate1(isEven); // function that returns the opposite of isEven for the same input
+
+isEven(3); // false
+isOdd(3); // true
+```
+
+### `negate2`
+Make this function return a **new function**that will always return the opposite of the predicate function it is passed. This version has to work with an arbitrary number of arguments. For example:
+
+```js
+function firstDividesSecond(first, second) {
+    return second % first === 0;
+}
+
+var firstDoesNotDivideSecond = negate2(firstDividesSecond);
+```
+
+This time you won't be able to create a function that only takes one argument. To complete this exercise, you'll have to learn about two concepts:
+
+  * [The JavaScript arguments object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)
+  * [`Function.prototype.apply`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
